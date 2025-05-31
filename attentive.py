@@ -7,7 +7,7 @@ from rdkit import Chem
 
 from torch_geometric.datasets import MoleculeNet
 from torch_geometric.loader import DataLoader
-from torch_geometric.nn.models import AttentiveFP
+from attentive_fp import AttentiveFP
 
 
 class GenFeatures:
@@ -140,7 +140,7 @@ def test(loader):
     return float(torch.cat(mse, dim=0).mean().sqrt())
 
 
-for epoch in range(1, 201):
+for epoch in range(1, 500):
     train_rmse = train()
     val_rmse = test(val_loader)
     test_rmse = test(test_loader)
