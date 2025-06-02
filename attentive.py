@@ -111,6 +111,13 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 model = AttentiveFP(in_channels=39, hidden_channels=200, out_channels=1,
                     edge_dim=10, num_layers=2, num_timesteps=2,
                     dropout=0.2).to(device)
+# Epoch: 500, Loss: 0.2734 Val: 0.5835 Test: 0.4860
+# Epoch: 500, Loss: 0.2593 Val: 0.6999 Test: 0.5919
+
+# model = AttentiveFP(in_channels=39, hidden_channels=200, out_channels=1,
+#                     edge_dim=10, num_layers=4, num_timesteps=4,
+#                     dropout=0.2).to(device)
+# Epoch: 500, Loss: 0.3005 Val: 0.5101 Test: 0.6675
 
 optimizer = torch.optim.Adam(model.parameters(), lr=10**-2.5,
                              weight_decay=10**-5)
@@ -140,7 +147,7 @@ def test(loader):
     return float(torch.cat(mse, dim=0).mean().sqrt())
 
 
-for epoch in range(1, 500):
+for epoch in range(1, 501):
     train_rmse = train()
     val_rmse = test(val_loader)
     test_rmse = test(test_loader)
