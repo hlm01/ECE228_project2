@@ -8,7 +8,6 @@ from rdkit import Chem
 from torch_geometric.datasets import MoleculeNet
 from torch_geometric.loader import DataLoader
 from attentive_fp import AttentiveFP
-from tqdm import tqdm
 
 
 class GenFeatures:
@@ -117,7 +116,7 @@ class GenFeatures:
         return data
 
 
-path = osp.join(osp.dirname(osp.realpath(__file__)), "data", "AFP_Mol")
+path = osp.join(osp.dirname(osp.realpath(__file__)), "..", "data", "AFP_Mol")
 dataset = MoleculeNet(path, name="ESOL", pre_transform=GenFeatures()).shuffle()
 
 N = len(dataset) // 10
@@ -125,7 +124,7 @@ val_dataset = dataset[:N]
 test_dataset = dataset[N : 2 * N]
 train_dataset = dataset[2 * N :]
 
-train_loader = DataLoader(train_dataset, batch_size=200, shuffle=True, pin_memory=True)
+train_loader = DataLoader(train_dataset, batch_size=200, shuffle=True)
 val_loader = DataLoader(val_dataset, batch_size=200)
 test_loader = DataLoader(test_dataset, batch_size=200)
 
@@ -167,11 +166,11 @@ def test(loader):
     return float(torch.cat(mse, dim=0).mean().sqrt())
 
 
-for epoch in tqdm(range(1, 500)):
+for epoch in range(1, 500):
     train_rmse = train()
     val_rmse = test(val_loader)
     test_rmse = test(test_loader)
-    # print(
-    #     f"Epoch: {epoch:03d}, Loss: {train_rmse:.4f} Val: {val_rmse:.4f} "
-    #     f"Test: {test_rmse:.4f}"
-    # )
+    print(
+        f"Epoch: {epoch:03d}, Loss: {train_rmse:.4f} Val: {val_rmse:.4f} "
+        f"Test: {test_rmse:.4f}"
+    )
