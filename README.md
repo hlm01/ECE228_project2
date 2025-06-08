@@ -2,7 +2,7 @@
 ## ECE228, Group 19, Track #1
 ## Henry Lin, Omkar Sathe, Stephen Wilcox
 
-In our project we build upon the model [Attentive FP](https://github.com/OpenDrugAI/AttentiveFP)---specifically we build upon [the implementation by pytorch](https://github.com/pyg-team/pytorch_geometric/blob/master/examples/attentive_fp.py) as the original has compatability issues with newer systems.
+In our project we build upon the [model](https://github.com/OpenDrugAI/AttentiveFP) [Attentive FP](https://sci-hub.st/10.1021/acs.jmedchem.9b00959)---specifically we build upon [the implementation by pytorch](https://github.com/pyg-team/pytorch_geometric/blob/master/examples/attentive_fp.py) as the original has compatability issues with newer systems.
 
 The code requires FIXME
 
